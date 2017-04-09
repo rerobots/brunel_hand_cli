@@ -62,13 +62,20 @@ class BrunelHandSerial(object):
 
 
 def main(argv=None):
-    bhs = BrunelHandSerial()
-    if len(sys.argv) > 1:
-        txt = ' '.join(sys.argv[1:])
+    aparser = argparse.ArgumentParser(description=('Command-line interface'
+                                                   ' for the Brunel Hand'))
+    aparser.add_argument('--raw', metavar='CMD', nargs='+',
+                         help='raw commands to send directly',
+                         dest='raw_command', action='store')
+    argv_parsed = aparser.parse_args(argv)
+
+    bhs = BrunelHandSerial(dev=None)
+    if argv_parsed.raw_command is not None:
+        txt = ' '.join(argv_parsed.raw_command)
         print('Sending command: ', txt)
         print(bhs.send_text(txt))
     else:
-        print('Printing diagnostics. (Try `?` for help.)')
+        print('Printing diagnostics. (Try `-h` for help.)')
         print(bhs.get_diagnostics_summary())
     bhs.close()
 
