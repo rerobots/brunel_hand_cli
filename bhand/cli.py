@@ -24,6 +24,8 @@ import serial
 
 class BrunelHandSerial(object):
     def __init__(self, dev='/dev/ttyACM0'):
+        """Instantiate wrapper of serial connection to Brunel Hand
+        """
         self.ser = serial.Serial(dev, baudrate=115200, exclusive=True)
 
     def close(self):
