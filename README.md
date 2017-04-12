@@ -13,6 +13,8 @@ are rapid prototyping and integration into more complicated applications.
 
 ## Development
 
+Current testing status for `master` branch: [![Build status](https://travis-ci.org/rerobots/brunel_hand_cli.svg?branch=master)](https://travis-ci.org/rerobots/brunel_hand_cli)
+
 Go to your clone of the repository, and try
 
     pip install .
