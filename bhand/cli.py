@@ -15,18 +15,24 @@
 """Command-line interface for the Brunel Hand
 """
 from __future__ import print_function
+from __future__ import absolute_import
 import argparse
 import sys
 import time
 
 import serial
 
+from . import sim
+
 
 class BrunelHandSerial(object):
     def __init__(self, dev='/dev/ttyACM0'):
         """Instantiate wrapper of serial connection to Brunel Hand
         """
-        self.ser = serial.Serial(dev, baudrate=115200, exclusive=True)
+        if isinstance(dev, sim.BaseHandSim):
+            self.ser = dev
+        else:
+            self.ser = serial.Serial(dev, baudrate=115200, exclusive=True)
 
     def close(self):
         self.ser.close()
@@ -66,12 +72,19 @@ class BrunelHandSerial(object):
 def main(argv=None):
     aparser = argparse.ArgumentParser(description=('Command-line interface'
                                                    ' for the Brunel Hand'))
+    aparser.add_argument('--loopback', action='store_true', default=False,
+                         help='do not send anything; echo values that would be sent')
     aparser.add_argument('--raw', metavar='CMD', nargs='+',
                          help='raw commands to send directly',
                          dest='raw_command', action='store')
     argv_parsed = aparser.parse_args(argv)
 
-    bhs = BrunelHandSerial(dev=None)
+    if argv_parsed.loopback:
+        dev = sim.Echo()
+    else:
+        dev = '/dev/ttyACM0'
+
+    bhs = BrunelHandSerial(dev)
     if argv_parsed.raw_command is not None:
         txt = ' '.join(argv_parsed.raw_command)
         print('Sending command: ', txt)
