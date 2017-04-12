@@ -38,6 +38,10 @@ class BrunelHandSerial(object):
         self.ser.close()
 
     def get_diagnostics_summary(self):
+        """Get diagnostics from firmware
+
+        This is equivalent to send_text('#').
+        """
         if self.ser.in_waiting > 0:
             self.ser.reset_input_buffer()
         self.ser.write(b'#\n')
