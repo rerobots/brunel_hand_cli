@@ -18,6 +18,6 @@ setup(name='bhand',
       version='0.0.0.dev0',
       author='Scott C. Livingston',
       url='https://github.com/rerobots/brunel_hand_cli',
-      install_requires=['pyserial'],
+      install_requires=['future', 'pyserial'],
       entry_points={'console_scripts': ['bhand = bhand.cli:main']}
       )
