@@ -13,20 +13,30 @@ are rapid prototyping and integration into more complicated applications.
 
 ## Development
 
-Current testing status for `master` branch: [![Build status](https://travis-ci.org/rerobots/brunel_hand_cli.svg?branch=master)](https://travis-ci.org/rerobots/brunel_hand_cli)
+To install the current release, try
 
-Go to your clone of the repository, and try
-
-    pip install .
+    pip install bhand
 
 which uses [pip](https://pip.pypa.io/en/stable/) to install dependencies and
-installs this Python package. Now, connect the USB cable from your Brunel Hand
-into your host machine, and try
+this Python package. Now, connect the USB cable from your Brunel Hand into your
+host machine, and try
 
     bhand
 
 It should print diagnostics data, e.g., the CPU temperature.  Note that serial
-communications use [pySerial](http://pyserial.readthedocs.io/en/stable/).
+communications use [pySerial](http://pyserial.readthedocs.io/en/stable/). To
+obtain a help message, try
+
+    bhand --raw ?
+
+The `?` command is recognized by the firmware Beetroot V1.01. (In some shells,
+`?` is a special character and has to be escaped. If the above fails, try
+instead `bhand --raw \?`.)
+
+Current testing status for `master` branch: [![Build status](https://travis-ci.org/rerobots/brunel_hand_cli.svg?branch=master)](https://travis-ci.org/rerobots/brunel_hand_cli)
+
+Bug reports and feature requests can be submitted in the issue tracker at
+https://github.com/rerobots/brunel_hand_cli/issues
 
 
 ## License
