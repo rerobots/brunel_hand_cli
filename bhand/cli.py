@@ -83,6 +83,9 @@ def main(argv=None):
     aparser.add_argument('--raw', metavar='CMD', nargs='+',
                          help='raw commands to send directly',
                          dest='raw_command', action='store')
+    aparser.add_argument('--fw-help', action='store_true', default=False,
+                         help='print help message from firmware',
+                         dest='fw_help')
     argv_parsed = aparser.parse_args(argv)
 
     if argv_parsed.loopback:
@@ -95,6 +98,8 @@ def main(argv=None):
         txt = ' '.join(argv_parsed.raw_command)
         print('Sending command: ', txt)
         print(bhs.send_text(txt))
+    elif argv_parsed.fw_help:
+        print(bhs.get_help())
     else:
         print('Printing diagnostics. (Try `-h` for help.)')
         print(bhs.get_diagnostics_summary())
