@@ -15,7 +15,7 @@ from setuptools import setup
 
 
 setup(name='bhand',
-      version='0.0.0',
+      version='0.0.1.dev0',
       author='Scott C. Livingston',
       url='https://github.com/rerobots/brunel_hand_cli',
       description='command-line interface and Python package for the Brunel Hand by Open Bionics',
