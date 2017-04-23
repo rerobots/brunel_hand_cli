@@ -62,6 +62,35 @@ class BrunelHandSerial(object):
             fw_v_text = ds[fw_index:(fw_index+fw_v_text_end)]
         return fw_v_text[3:].strip()
 
+    def get_mode(self):
+        dsummary = self.get_diagnostics_summary()
+        for k in dsummary.split('\n'):
+            if k.startswith('Mode'):
+                return k.split('\t')[1].strip()
+        return None
+
+    def get_csv_1line(self):
+        mode = self.get_mode()
+        if mode is None:
+            raise ValueError('Firmware mode unknown')
+        if mode != 'CSV':
+            already_csv_mode = False
+            self.send_text('A4')  # Assume Beetroot V1.01
+        else:
+            already_csv_mode = True
+        blob = self.ser.read(self.ser.in_waiting).decode()
+        while len(blob) < 60:
+            blob += self.ser.read(self.ser.in_waiting).decode()
+        if not already_csv_mode:
+            self.send_text('A4')  # Assume Beetroot V1.01
+        rfound = blob.rfind('\n')
+        if rfound < 0:
+            raise ValueError('Malformed CSV data')
+        rrfound = blob[:(rfound-1)].rfind('\n')
+        if rrfound < 0:
+            raise ValueError('Malformed CSV data')
+        return blob[(rrfound+1):rfound]
+
     def get_help(self):
         if self.ser.in_waiting > 0:
             self.ser.reset_input_buffer()
@@ -86,6 +115,9 @@ def main(argv=None):
     aparser.add_argument('--fw-help', action='store_true', default=False,
                          help='print help message from firmware',
                          dest='fw_help')
+    aparser.add_argument('--get-csv', action='store_true', default=False,
+                         help='get finger pose data as one line of CSV',
+                         dest='get_csv')
     argv_parsed = aparser.parse_args(argv)
 
     if argv_parsed.loopback:
@@ -100,6 +132,8 @@ def main(argv=None):
         print(bhs.send_text(txt))
     elif argv_parsed.fw_help:
         print(bhs.get_help())
+    elif argv_parsed.get_csv:
+        print(bhs.get_csv_1line())
     else:
         print('Printing diagnostics. (Try `-h` for help.)')
         print(bhs.get_diagnostics_summary())
