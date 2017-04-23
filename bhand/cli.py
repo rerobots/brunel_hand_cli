@@ -47,7 +47,7 @@ class BrunelHandSerial(object):
         if self.ser.in_waiting > 0:
             self.ser.reset_input_buffer()
         self.ser.write(b'#\n')
-        time.sleep(0.1)
+        time.sleep(0.2)
         return self.ser.read(self.ser.in_waiting).decode()
 
     def get_firmware_version(self):
@@ -66,12 +66,12 @@ class BrunelHandSerial(object):
         if self.ser.in_waiting > 0:
             self.ser.reset_input_buffer()
         self.ser.write(b'?\n')
-        time.sleep(0.1)
+        time.sleep(0.2)
         return self.ser.read(self.ser.in_waiting).decode()
 
     def send_text(self, txt):
         self.ser.write(bytes(txt+'\n', encoding='utf-8'))
-        time.sleep(0.1)
+        time.sleep(0.2)
         return self.ser.read(self.ser.in_waiting).decode()
 
 
