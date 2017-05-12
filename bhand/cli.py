@@ -109,6 +109,9 @@ def main(argv=None):
                                                    ' for the Brunel Hand'))
     aparser.add_argument('--loopback', action='store_true', default=False,
                          help='do not send anything; echo values that would be sent')
+    aparser.add_argument('-V', '--version', action='store_true', default=False,
+                         help='print version of bhand (this) package.',
+                         dest='print_version')
     aparser.add_argument('--raw', metavar='CMD', nargs='+',
                          help='raw commands to send directly',
                          dest='raw_command', action='store')
@@ -119,6 +122,11 @@ def main(argv=None):
                          help='get finger pose data as one line of CSV',
                          dest='get_csv')
     argv_parsed = aparser.parse_args(argv)
+
+    if argv_parsed.print_version:
+        from . import __version__ as bhand_pkg_version
+        print(bhand_pkg_version)
+        sys.exit()
 
     if argv_parsed.loopback:
         dev = sim.Echo()
