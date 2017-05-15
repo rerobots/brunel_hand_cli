@@ -118,6 +118,9 @@ def main(argv=None):
     aparser.add_argument('--fw-help', action='store_true', default=False,
                          help='print help message from firmware',
                          dest='fw_help')
+    aparser.add_argument('--fw-version', action='store_true', default=False,
+                         help='print version of firmware',
+                         dest='fw_print_version')
     aparser.add_argument('--get-csv', action='store_true', default=False,
                          help='get finger pose data as one line of CSV',
                          dest='get_csv')
@@ -138,6 +141,8 @@ def main(argv=None):
         txt = ' '.join(argv_parsed.raw_command)
         print('Sending command: ', txt)
         print(bhs.send_text(txt))
+    elif argv_parsed.fw_print_version:
+        print(bhs.get_firmware_version())
     elif argv_parsed.fw_help:
         print(bhs.get_help())
     elif argv_parsed.get_csv:
