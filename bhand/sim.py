@@ -13,7 +13,11 @@
 # limitations under the License.
 """Simulation and mock capabilities
 """
+import copy
 import sys
+from builtins import bytes
+
+from . import __version__ as bhand_pkg_version
 
 
 class BaseHandSim(object):
@@ -21,27 +25,37 @@ class BaseHandSim(object):
 
 
 class Echo(BaseHandSim):
-    def __init__(self, outfile=None):
+    def __init__(self, outfile=None, truncate=256):
         """Instantiate the "echo" mock
 
         `outfile` is a file-like object to which received serial input
         should be echoed, or if it is None (the default case), then
         use stdout.
+
+        `truncate` is the maximum length of accepted input strings,
+        e.g., as given to the method write().
         """
         if outfile is None:
             self.logging = sys.stdout
         else:
             self.logging = outfile
+        self.truncate_len = truncate
         self.in_waiting = 0
 
 
     def read(self, count=1):
-        self.logging.write('ECHO: read({})\n'.format(count))
-        return b''
+        self.logging.write('ECHO: read({!r})\n'.format(count))
+        if self.msg == '#':
+            self.msg = ''
+            return b'FW: Echo(BaseHandSim) V'+bytes(bhand_pkg_version, encoding='utf-8')
+        else:
+            return b''
 
     def write(self, msg):
-        self.logging.write('ECHO: write({})\n'.format(msg))
-        return
+        self.logging.write('ECHO: write({!r})\n'.format(msg))
+        if len(msg) > self.truncate_len:
+            msg = msg[:self.truncate_len]
+        self.msg = copy.copy(msg.decode())
 
     def reset_input_buffer(self):
         self.in_waiting = 0
