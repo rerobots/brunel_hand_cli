@@ -36,11 +36,11 @@ class Echo(BaseHandSim):
 
 
     def read(self, count=1):
-        self.logging.write('ECHO: read({})'.format(count))
+        self.logging.write('ECHO: read({})\n'.format(count))
         return b''
 
     def write(self, msg):
-        self.logging.write('ECHO: write({})'.format(msg))
+        self.logging.write('ECHO: write({})\n'.format(msg))
         return
 
     def reset_input_buffer(self):
