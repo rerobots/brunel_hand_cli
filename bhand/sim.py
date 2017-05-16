@@ -44,7 +44,7 @@ class Echo(BaseHandSim):
         return
 
     def reset_input_buffer(self):
-        return
+        self.in_waiting = 0
 
     def close(self):
         return
