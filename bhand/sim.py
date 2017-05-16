@@ -24,7 +24,7 @@ class Echo(BaseHandSim):
     def __init__(self, outfile=None):
         """Instantiate the "echo" mock
 
-        `logging` is a file-like object to which received serial input
+        `outfile` is a file-like object to which received serial input
         should be echoed, or if it is None (the default case), then
         use stdout.
         """
