@@ -15,7 +15,6 @@
 """
 import copy
 import sys
-from builtins import bytes
 
 from . import __version__ as bhand_pkg_version
 
@@ -47,7 +46,10 @@ class Echo(BaseHandSim):
         self.logging.write('ECHO: read({!r})\n'.format(count))
         if self.msg == '#':
             self.msg = ''
-            return b'FW: Echo(BaseHandSim) V'+bytes(bhand_pkg_version, encoding='utf-8')
+            try:
+                res = b'FW: Echo(BaseHandSim) V'+bytes(bhand_pkg_version, encoding='utf-8')
+            except TypeError:  # Try instead to use Python 2 `bytes`?
+                res = b'FW: Echo(BaseHandSim) V'+bytes(bhand_pkg_version)
         else:
             return b''
 

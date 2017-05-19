@@ -16,7 +16,6 @@
 """
 from __future__ import print_function
 from __future__ import absolute_import
-from builtins import bytes
 
 import argparse
 import sys
@@ -99,7 +98,11 @@ class BrunelHandSerial(object):
         return self.ser.read(self.ser.in_waiting).decode()
 
     def send_text(self, txt):
-        self.ser.write(bytes(txt+'\n', encoding='utf-8'))
+        try:
+            encoded_txt = bytes(txt+'\n', encoding='utf-8')
+        except TypeError:  # Try instead to use Python 2 `bytes`?
+            encoded_txt = bytes(txt+'\n')
+        self.ser.write(encoded_txt)
         time.sleep(0.2)
         return self.ser.read(self.ser.in_waiting).decode()
 

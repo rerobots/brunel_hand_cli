@@ -26,6 +26,6 @@ setup(name='bhand',
                    'Programming Language :: Python :: 3.4',
                    'Programming Language :: Python :: 3.5'],
       packages=['bhand'],
-      install_requires=['future', 'pyserial'],
+      install_requires=['pyserial'],
       entry_points={'console_scripts': ['bhand = bhand.cli:main']}
       )
