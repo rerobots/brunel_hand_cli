@@ -112,6 +112,8 @@ def main(argv=None):
                                                    ' for the Brunel Hand'))
     aparser.add_argument('--loopback', action='store_true', default=False,
                          help='do not send anything; echo values that would be sent')
+    aparser.add_argument('--dev', metavar='DEV', default='/dev/ttyACM0',
+                         help='device file for serial connection; default is /dev/ttyACM0')
     aparser.add_argument('-V', '--version', action='store_true', default=False,
                          help='print version of bhand (this) package.',
                          dest='print_version')
@@ -137,7 +139,7 @@ def main(argv=None):
     if argv_parsed.loopback:
         dev = sim.Echo()
     else:
-        dev = '/dev/ttyACM0'
+        dev = argv_parsed.dev
 
     bhs = BrunelHandSerial(dev)
     if argv_parsed.raw_command is not None:
