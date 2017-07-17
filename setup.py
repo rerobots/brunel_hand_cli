@@ -14,11 +14,16 @@
 from setuptools import setup
 
 
+with open('README.rst') as fp:
+    long_description = fp.read()
+
+
 setup(name='bhand',
       version='0.0.3.dev0',
       author='Scott C. Livingston',
       url='https://github.com/rerobots/brunel_hand_cli',
       description='command-line interface and Python package for the Brunel Hand by Open Bionics',
+      long_description=long_description,
       classifiers=['License :: OSI Approved :: Apache Software License',
                    'Programming Language :: Python :: 2.7',
                    'Programming Language :: Python :: 3',
