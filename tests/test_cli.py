@@ -10,16 +10,16 @@ except ImportError:  # if Python 3
 import sys
 
 import bhand
-import bhand.cli
+from bhand import cli
 
 
 def test_loopback_diagnostics():
-    assert bhand.cli.main(['--loopback', '--raw', '#']) == 0
+    assert cli.main(['--loopback', '--raw', '#']) == 0
 
 def test_version():
     original_stdout = sys.stdout
     sys.stdout = StringIO()
-    bhand.cli.main(['--version'])
+    cli.main(['--version'])
     res = sys.stdout.getvalue().strip()
     sys.stdout = original_stdout
     assert bhand.__version__ == res
