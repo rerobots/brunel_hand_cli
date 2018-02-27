@@ -1,6 +1,7 @@
 *~
 *.pyc
 *.egg-info
+bhand/_version.py
 /.tox/
 /dist/
 /.coverage
