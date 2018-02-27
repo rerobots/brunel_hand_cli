@@ -1,3 +1,8 @@
+"""Basic tests of the simulated Brunel Hand
+
+SCL <scott@rerobots.net>
+Copyright (c) 2017 rerobots, Inc.
+"""
 from bhand import sim
 
 
