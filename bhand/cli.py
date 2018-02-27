@@ -134,7 +134,7 @@ def main(argv=None):
     if argv_parsed.print_version:
         from . import __version__ as bhand_pkg_version
         print(bhand_pkg_version)
-        sys.exit()
+        return 0
 
     if argv_parsed.loopback:
         dev = sim.Echo()
