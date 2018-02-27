@@ -86,6 +86,32 @@ class BrunelHandSerial(object):
         else:
             raise ValueError('Unexpected Motors status: {}'.format(status))
 
+    def enable_motors(self):
+        """Enable motors
+
+        This method is idempotent.
+        """
+        for ii in range(3):
+            if self.motors_enabled():
+                return
+            if not self.motors_enabled():
+                self.send_text('A3')
+        if not self.motors_enabled():
+            raise ValueError('Failed to enable motors')
+
+    def unenable_motors(self):
+        """Un-enable (disable) motors
+
+        This method is idempotent.
+        """
+        for ii in range(3):
+            if not self.motors_enabled():
+                return
+            if self.motors_enabled():
+                self.send_text('A3')
+        if self.motors_enabled():
+            raise ValueError('Failed to un-enable (disable) motors')
+
     def get_csv_1line(self):
         mode = self.get_mode()
         if mode is None:
