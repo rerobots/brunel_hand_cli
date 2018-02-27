@@ -68,6 +68,24 @@ class BrunelHandSerial(object):
                 return k.split('\t')[1].strip()
         return None
 
+    def motors_enabled(self):
+        """Return True iff motors are enabled
+
+        Raises ValueError if the motor status cannot be
+        """
+        dsummary = self.get_diagnostics_summary()
+        status = None
+        for k in dsummary.split('\n'):
+            if k.startswith('Motors'):
+                status = k.split('\t')[1].strip()
+                break
+        if status == 'ENABLED':
+            return True
+        elif status == 'DISABLED':
+            return False
+        else:
+            raise ValueError('Unexpected Motors status: {}'.format(status))
+
     def get_csv_1line(self):
         mode = self.get_mode()
         if mode is None:
