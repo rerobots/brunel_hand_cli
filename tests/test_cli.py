@@ -3,8 +3,23 @@
 SCL <scott@rerobots.net>
 Copyright (c) 2017, 2018 rerobots, Inc.
 """
+try:
+    from cStringIO import StringIO
+except ImportError:  # if Python 3
+    from io import StringIO
+import sys
+
+import bhand
 import bhand.cli
 
 
 def test_loopback_diagnostics():
     assert bhand.cli.main(['--loopback', '--raw', '#']) == 0
+
+def test_version():
+    original_stdout = sys.stdout
+    sys.stdout = StringIO()
+    bhand.cli.main(['--version'])
+    res = sys.stdout.getvalue().strip()
+    sys.stdout = original_stdout
+    assert bhand.__version__ == res
