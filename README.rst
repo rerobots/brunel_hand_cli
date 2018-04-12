@@ -5,7 +5,7 @@ Introduction
 ------------
 
 This repository provides a command-line interface and Python package for the
-`Brunel Hand <https://www.openbionics.com/shop/brunel-hand>`_
+`Brunel Hand <https://openbionicslabs.com/shop/brunel-hand>`_
 by `Open Bionics <https://www.openbionics.com>`_.
 
 The main design goal is to provide a fast and reliable interface to the
