@@ -1,0 +1,16 @@
+type: fixed_brunelhand
+version: 1
+
+install:
+  - uname -a
+  - cat /etc/os-release
+  - apt-get update
+  - apt-get -y install python3 python3-virtualenv
+  - apt-get -y install vgrabbj
+  - python3 -m virtualenv -p python3 PY
+  - source PY/bin/activate
+    && pip install -U pip
+    && pip --version
+    && pip install .
+
+script: source PY/bin/activate && ./tests/smoketest-fixed-brunelhand.sh
