@@ -13,6 +13,9 @@ firmware, `Beetroot <https://github.com/Open-Bionics/Beetroot>`_.  Motivating
 use-cases are rapid prototyping and integration into more complicated
 applications.
 
+Video demonstrating ``bhand`` on actual hardware through `rerobots <https://rerobots.net/>`_:
+https://vimeo.com/295234317
+
 
 Development
 -----------
