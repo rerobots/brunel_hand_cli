@@ -40,12 +40,6 @@ The ``?`` command is recognized by the firmware Beetroot V1.01. (In some shells,
 ``?`` is a special character and has to be escaped. If the above fails, try
 instead ``bhand --raw \?``.)
 
-Current testing status for ``master`` branch: |build-status| (for details, visit
-`the page on Travis CI <https://travis-ci.org/rerobots/brunel_hand_cli>`_).
-
-.. |build-status| image:: https://travis-ci.org/rerobots/brunel_hand_cli.svg?branch=master
-
-
 Bug reports and feature requests can be submitted in the issue tracker at
 https://github.com/rerobots/brunel_hand_cli/issues
 
